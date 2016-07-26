@@ -1,0 +1,8 @@
+sudo: required
+
+before_install:
+  - curl -fsSL https://experimental.docker.com/ | sudo sh
+
+script:
+  - mkdir rootfs && tar Cxf rootfs rootfs.tar
+  - for f in $(seq 10000);do echo === ROUND $f ===; sudo docker-runc --debug --log /dev/stdout run testc; done
